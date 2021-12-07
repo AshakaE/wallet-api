@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
     },
     paymentId: {
         type: [String],
-        validate: [
-            arrayLimit,
-            '{PATH} exceeded! Please delete old ones and try again.',
-        ],
     },
     password: {
         type: String,
@@ -42,10 +38,6 @@ const userSchema = new mongoose.Schema({
         },
     },
 })
-
-function arrayLimit(val) {
-    return val.length <= 5
-}
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next()
