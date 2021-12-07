@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs'
-import mongoose from 'mongoose'
-import validator from 'validator'
+const bcrypt = require('bcryptjs')
+const mongoose = require('mongoose')
+const validator = require('validator')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -64,4 +64,4 @@ userSchema.pre('save', function (next) {
 
 const User = mongoose.model('User', userSchema)
 
-export default User
+module.exports = User
