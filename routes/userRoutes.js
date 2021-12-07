@@ -9,4 +9,6 @@ router.post('/login', authController.login)
 
 router.patch('/getPaymentId/:id', userController.generatePaymentId)
 
+router.patch('/deletePaymentId/:id', userController.deletePaymentId)
+
 module.exports = router

@@ -36,3 +36,27 @@ exports.generatePaymentId = catchAsync(async (req, res, next) => {
     }
     next()
 })
+
+exports.deletePaymentId = catchAsync(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if (user.paymentId.length === 1) {
+        res.status(400).json({
+            status: 'bad',
+            data: 'payment IDs must contain atleast one ID',
+        })
+        next()
+    } else {
+        const val = req.body.option
+        await User.findByIdAndUpdate(req.params.id, {
+            $pull: { paymentId: val },
+        })
+
+        res.status(200).json({
+            status: 'success',
+            data: {
+                data: `payment Id '${val}' removed successfully`,
+            },
+        })
+        next()
+    }
+})
