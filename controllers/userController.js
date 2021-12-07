@@ -13,8 +13,8 @@ exports.generatePaymentId = catchAsync(async (req, res, next) => {
 
     if (user.paymentId.length === 5) {
         res.status(400).json({
-            status: 'bad',
-            data: 'exceeded',
+            status: 'Not allowed',
+            data: 'Payment ID limit exceeded!',
         })
         next()
     } else {
@@ -37,16 +37,15 @@ exports.generatePaymentId = catchAsync(async (req, res, next) => {
     next()
 })
 
-exports.deletePaymentId = catchAsync(async (req, res) => {
+exports.deletePaymentId = catchAsync(async (req, res, next) => {
+    const val = req.body.option
     const user = await User.findById(req.params.id)
     if (user.paymentId.length === 1) {
         res.status(400).json({
-            status: 'bad',
+            status: 'Not allowed',
             data: 'payment IDs must contain atleast one ID',
         })
-        next()
-    } else {
-        const val = req.body.option
+    } else if (user.paymentId.includes(val)) {
         await User.findByIdAndUpdate(req.params.id, {
             $pull: { paymentId: val },
         })
@@ -54,9 +53,38 @@ exports.deletePaymentId = catchAsync(async (req, res) => {
         res.status(200).json({
             status: 'success',
             data: {
-                data: `payment Id '${val}' removed successfully`,
+                data: `payment Id '${val}' deleted successfully`,
             },
         })
         next()
+    } else {
+        res.status(404).json({
+            status: 'Not found',
+            data: {
+                data: `payment Id - '${val}' not found!`,
+            },
+        })
+
+        next()
+    }
+    next()
+})
+
+exports.findUserByPaymentId = catchAsync(async (req, res, next) => {
+    const user = await User.find({ paymentId: req.body.paymentId }).select(
+        '-_id -email -phoneNumber',
+    )
+    if (user) {
+        res.status(200).json({
+            status: 'success',
+            data: {
+                data: user,
+            },
+        })
+    } else {
+        res.status(400).json({
+            status: 'Not Found',
+            data: 'User not found!',
+        })
     }
 })

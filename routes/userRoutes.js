@@ -4,11 +4,14 @@ const userController = require('../controllers/userController')
 
 const router = express.Router()
 
-router.post('/signup', authController.signup)
-router.post('/login', authController.login)
+router
+    .post('/signup', authController.signup)
+    .post('/login', authController.login)
 
-router.patch('/getPaymentId/:id', userController.generatePaymentId)
+router
+    .patch('/getPaymentId/:id', userController.generatePaymentId)
+    .patch('/deletePaymentId/:id', userController.deletePaymentId)
 
-router.patch('/deletePaymentId/:id', userController.deletePaymentId)
+router.get('/', userController.findUserByPaymentId)
 
 module.exports = router
