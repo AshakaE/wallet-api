@@ -1,10 +1,24 @@
 ## Simple Wallet Api that assigns a paymentID to a user upon sign up, users can generate 4 more IDs and have atleast on paymentID at any time.
 
+## Built with
+
+-   Node.js
+-   Express.js
+-   MongoDB
+
 ## Live Demo
 
 ### Prerequisites
 
 -   Node.js
+
+## Getting Started
+
+-   `git clone git@github.com:AshakaE/wallet-api.git`
+-   `cd wallet-api`
+-   `npm install`
+-   `npm start`
+-   `test endpoints from the documentation locally @ http://localhost:3500/api/v1`
 
 ## Show your support
 
