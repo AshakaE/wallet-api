@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     paymentId: {
         type: [String],
     },
+    balance: {
+        type: Number,
+        default: 5000,
+    },
     password: {
         type: String,
         required: [true, 'Please provide a password'],

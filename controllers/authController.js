@@ -17,17 +17,22 @@ exports.signup = catchAsync(async (req, res, next) => {
             newUser,
         },
     })
+    next()
 })
 
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body
 
-    const user = await User.findOne({ email }).select('+password')
+    if (email && password) {
+        const user = await User.findOne({ email })
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            user,
-        },
-    })
+        res.status(200).json({
+            status: 'success',
+            data: {
+                user,
+            },
+        })
+        next()
+    }
+    next()
 })

@@ -11,6 +11,7 @@ router
 router
     .patch('/getPaymentId/:id', userController.generatePaymentId)
     .patch('/deletePaymentId/:id', userController.deletePaymentId)
+    .patch('/makeTransfer/:id', userController.sendFunds)
 
 router.get('/', userController.findUserByPaymentId)
 

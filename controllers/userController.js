@@ -72,7 +72,7 @@ exports.deletePaymentId = catchAsync(async (req, res, next) => {
 
 exports.findUserByPaymentId = catchAsync(async (req, res, next) => {
     const user = await User.find({ paymentId: req.body.paymentId }).select(
-        '-_id -email -phoneNumber',
+        '-_id -email',
     )
     if (user) {
         res.status(200).json({
@@ -87,4 +87,32 @@ exports.findUserByPaymentId = catchAsync(async (req, res, next) => {
             data: 'User not found!',
         })
     }
+})
+
+exports.sendFunds = catchAsync(async (req, res, next) => {
+//     const amount = req.body.amount
+//     const sender = await User.findById(req.params.id)
+//     const receiver = await User.find({ paymentId: req.body.paymentId })
+//     const subtracted = sender.balance
+//     const added = receiver[0].balance
+
+//     if (sender && receiver) {
+//         const user = await User.findByIdAndUpdate(req.params.id, {
+//             $substract: { balance: amount },
+//         })
+//         await User.findByIdAndUpdate(receiver[0].id, {
+//             $add: { balance: amount },
+//         })
+//         res.status(200).json({
+//             status: 'success',
+//             data: {
+//                 data: user,
+//             },
+//         })
+//     }
+        res.status(200).json({
+            status: 'success',
+            data: 'Not yet implemented'
+        })
+//     next()
 })
